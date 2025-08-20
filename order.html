@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Place an Order - Babanentse Co-op</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <h1 class="logo">Babanentse Co-op</h1>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="quote.html">Get Quote</a>
+      <a href="order.html" class="active">Order Now</a>
+    </nav>
+  </div>
+
+  <!-- Hero -->
+  <section class="page-hero" style="background:url('https://via.placeholder.com/1600x600?text=Place+Your+Order') center/cover no-repeat;">
+    <div class="overlay"></div>
+    <div class="page-hero-content">
+      <h1>Place Your Order</h1>
+      <p>Fill in the form below to order our embroidery, sewing, or printing services.</p>
+    </div>
+  </section>
+
+  <!-- Order Form -->
+  <section class="order-form-section" style="padding:40px; background:#fff; color:#111;">
+    <form id="orderForm">
+      <label>Full Name</label>
+      <input type="text" name="full_name" required>
+
+      <label>Email Address</label>
+      <input type="email" name="email" required>
+
+      <label>Phone Number</label>
+      <input type="tel" name="phone" required>
+
+      <label>Service/Product</label>
+      <input type="text" name="product" placeholder="Describe the service or product you want" required>
+
+      <label>Quantity</label>
+      <input type="number" name="quantity" min="1" required>
+
+      <label>Size (if applicable)</label>
+      <input type="text" name="size">
+
+      <label>Color (if applicable)</label>
+      <input type="text" name="color">
+
+      <label>Upload Design/Image</label>
+      <input type="file" name="file">
+
+      <label>Delivery Address</label>
+      <textarea name="address" rows="3" required></textarea>
+
+      <label>Additional Notes</label>
+      <textarea name="notes" rows="4"></textarea>
+
+      <input type="hidden" name="date" id="orderDate">
+
+      <button type="submit" class="btn btn-primary" style="margin-top:20px;">Place Order</button>
+    </form>
+
+    <p id="formMessage" style="margin-top:15px;"></p>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-bottom">
+      <p>© 2025 Babanentse Co-op. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init("3K2B2VJXNjpTVjW-6"); // Public Key
+    })();
+
+    document.getElementById("orderForm").addEventListener("submit", function(e){
+      e.preventDefault();
+
+      // Set current date
+      document.getElementById("orderDate").value = new Date().toLocaleString();
+
+      emailjs.sendForm("service_u9o5uws", "template_t9ev2qq", this)
+        .then(function(){
+          document.getElementById("formMessage").innerText = "✅ Order sent successfully! We’ll contact you soon.";
+          document.getElementById("formMessage").style.color = "green";
+          document.getElementById("orderForm").reset();
+        }, function(error){
+          console.error(error);
+          document.getElementById("formMessage").innerText = "❌ Something went wrong. Please try again.";
+          document.getElementById("formMessage").style.color = "red";
+        });
+    });
+  </script>
+
+</body>
+</html>
