@@ -39,12 +39,14 @@
 
   <!-- Quote Form -->
   <section class="quote-section">
-    <form class="quote-form">
+    <form class="quote-form" action="https://formspree.io/f/xdklrlzn" method="POST">
       <h3>Quote Request Form</h3>
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Your Email" required>
-      <input type="tel" placeholder="Phone Number" required>
-      <select required>
+
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <input type="tel" name="phone" placeholder="Phone Number" required>
+
+      <select name="service" required>
         <option value="">Select Service</option>
         <option value="embroidery">Custom Embroidery</option>
         <option value="sewing">Sewing & Alterations</option>
@@ -53,7 +55,15 @@
         <option value="banners">Banner Printing</option>
         <option value="design">Design Consultation</option>
       </select>
-      <textarea placeholder="Project Details" rows="5" required></textarea>
+
+      <textarea name="message" placeholder="Project Details" rows="5" required></textarea>
+
+      <!-- Hidden field to identify form -->
+      <input type="hidden" name="formType" value="Get Quote">
+
+      <!-- Redirect after submit -->
+      <input type="hidden" name="_redirect" value="https://babanentse.com/thank-you.html">
+
       <button type="submit" class="btn btn-primary">Get My Quote</button>
     </form>
   </section>
