@@ -23,7 +23,7 @@
   </div>
 
   <!-- Hero -->
-  <section class="page-hero" style="background:url('background.jpg') center/cover no-repeat;">
+  <section class="page-hero" style="background:url('backgroung.jpg') center/cover no-repeat;">
     <div class="overlay"></div>
     <div class="page-hero-content">
       <h1>Place Your Order</h1>
@@ -33,8 +33,11 @@
 
   <!-- Order Form -->
   <section class="order-form-section" style="padding:40px; background:#fff; color:#111;">
-    <form id="orderForm" action="https://formspree.io/f/xdklrlzn" method="POST" enctype="multipart/form-data">
+    <form action="https://formspree.io/f/xdklrlzn" method="POST" enctype="multipart/form-data">
       
+      <!-- Hidden input to send to your email -->
+      <input type="hidden" name="_to" value="info@babanentse.com">
+
       <label>Full Name</label>
       <input type="text" name="full_name" required>
 
@@ -65,12 +68,11 @@
       <label>Additional Notes</label>
       <textarea name="notes" rows="4"></textarea>
 
+      <!-- Hidden order date -->
       <input type="hidden" name="date" value="">
-      
+
       <button type="submit" class="btn btn-primary" style="margin-top:20px;">Place Order</button>
     </form>
-
-    <p id="formMessage" style="margin-top:15px;"></p>
   </section>
 
   <!-- Footer -->
@@ -80,38 +82,9 @@
     </div>
   </footer>
 
-  <!-- Small Script to add current date -->
+  <!-- Script to set current date -->
   <script>
     document.querySelector("input[name='date']").value = new Date().toLocaleString();
-
-    const form = document.getElementById("orderForm");
-    const message = document.getElementById("formMessage");
-
-    form.addEventListener("submit", async function(e) {
-      e.preventDefault();
-      message.innerText = "⏳ Sending...";
-      message.style.color = "black";
-
-      try {
-        const response = await fetch(form.action, {
-          method: "POST",
-          body: new FormData(form),
-          headers: { 'Accept': 'application/json' }
-        });
-
-        if (response.ok) {
-          message.innerText = "✅ Order sent successfully! We’ll contact you soon.";
-          message.style.color = "green";
-          form.reset();
-        } else {
-          message.innerText = "❌ Something went wrong. Please try again.";
-          message.style.color = "red";
-        }
-      } catch (error) {
-        message.innerText = "⚠️ Network error. Please try again.";
-        message.style.color = "red";
-      }
-    });
   </script>
 
 </body>
