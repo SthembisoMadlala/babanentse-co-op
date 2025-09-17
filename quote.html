@@ -23,36 +23,39 @@
   </div>
 
   <!-- Hero -->
-  <section class="page-hero" style="background:url('background.jpg') center/cover no-repeat;">
+  <section class="page-hero" style="background:url('https://via.placeholder.com/1600x600?text=Get+a+Quote+Banner') center/cover no-repeat;">
     <div class="overlay"></div>
     <div class="page-hero-content">
       <h1>Request a Quote</h1>
-      <p>Fill out the form below and we’ll send you a price estimate.</p>
+      <p>Tell us about your project and we’ll get back to you with a personalized quote.</p>
     </div>
   </section>
 
+  <!-- Intro -->
+  <section class="services-intro">
+    <h2>Fast & Accurate Quotes</h2>
+    <p>Fill in the form below with as much detail as possible so we can provide an accurate price estimate for your project.</p>
+  </section>
+
   <!-- Quote Form -->
-  <section class="form-section" style="padding:40px; background:#fff; color:#111;">
-    <form id="quoteForm" action="https://formspree.io/f/xdklrlzn" method="POST">
-      <label>Full Name</label>
-      <input type="text" name="full_name" required>
-
-      <label>Email Address</label>
-      <input type="email" name="email" required>
-
-      <label>Phone Number</label>
-      <input type="tel" name="phone">
-
-      <label>Service Needed</label>
-      <input type="text" name="service" required>
-
-      <label>Details</label>
-      <textarea name="details" rows="4" placeholder="Please describe your request" required></textarea>
-
-      <button type="submit" class="btn btn-primary" style="margin-top:20px;">Request Quote</button>
+  <section class="quote-section">
+    <form class="quote-form">
+      <h3>Quote Request Form</h3>
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <input type="tel" placeholder="Phone Number" required>
+      <select required>
+        <option value="">Select Service</option>
+        <option value="embroidery">Custom Embroidery</option>
+        <option value="sewing">Sewing & Alterations</option>
+        <option value="printing">Clothing Printing</option>
+        <option value="mugs">Mug Printing</option>
+        <option value="banners">Banner Printing</option>
+        <option value="design">Design Consultation</option>
+      </select>
+      <textarea placeholder="Project Details" rows="5" required></textarea>
+      <button type="submit" class="btn btn-primary">Get My Quote</button>
     </form>
-
-    <p id="quoteMessage" style="margin-top:15px;"></p>
   </section>
 
   <!-- Footer -->
@@ -61,38 +64,6 @@
       <p>© 2025 Babanentse Co-op. All rights reserved.</p>
     </div>
   </footer>
-
-  <!-- Script -->
-  <script>
-    const quoteForm = document.getElementById("quoteForm");
-    const quoteMsg = document.getElementById("quoteMessage");
-
-    quoteForm.addEventListener("submit", async function(e) {
-      e.preventDefault();
-      quoteMsg.innerText = "⏳ Sending...";
-      quoteMsg.style.color = "black";
-
-      try {
-        const response = await fetch(quoteForm.action, {
-          method: "POST",
-          body: new FormData(quoteForm),
-          headers: { 'Accept': 'application/json' }
-        });
-
-        if (response.ok) {
-          quoteMsg.innerText = "✅ Quote request sent successfully!";
-          quoteMsg.style.color = "green";
-          quoteForm.reset();
-        } else {
-          quoteMsg.innerText = "❌ Something went wrong. Please try again.";
-          quoteMsg.style.color = "red";
-        }
-      } catch (error) {
-        quoteMsg.innerText = "⚠️ Network error. Please try again.";
-        quoteMsg.style.color = "red";
-      }
-    });
-  </script>
 
 </body>
 </html>

@@ -17,39 +17,41 @@
       <a href="gallery.html">Gallery</a>
       <a href="about.html">About</a>
       <a href="contact.html" class="active">Contact</a>
-      <a href="quote.html">Get Quote</a>
       <a href="order.html">Order Now</a>
     </nav>
   </div>
 
   <!-- Hero -->
-  <section class="page-hero" style="background:url('background.jpg') center/cover no-repeat;">
+  <section class="page-hero" style="background:url('https://via.placeholder.com/1600x600?text=Contact+Us+Banner') center/cover no-repeat;">
     <div class="overlay"></div>
     <div class="page-hero-content">
       <h1>Contact Us</h1>
-      <p>Have questions? Get in touch with us below.</p>
+      <p>We’d love to hear from you! Get in touch today.</p>
     </div>
   </section>
 
-  <!-- Contact Form -->
-  <section class="form-section" style="padding:40px; background:#fff; color:#111;">
-    <form id="contactForm" action="https://formspree.io/f/xdklrlzn" method="POST">
-      <label>Full Name</label>
-      <input type="text" name="full_name" required>
+  <!-- Contact Info -->
+  <section class="services-intro">
+    <h2>Get in Touch</h2>
+    <p>Reach out to us for inquiries, quotes, or collaborations. We’re ready to help bring your vision to life.</p>
+  </section>
 
-      <label>Email Address</label>
-      <input type="email" name="email" required>
+  <section class="contact-section">
+    <div class="contact-info">
+      <h3>Our Office</h3>
+      <p>📍 34 Market street Mooi River 3300</p>
+      <p>📞 +2781 347 5668</p>
+      <p>📧 info@babanentse.com</p>
+    </div>
 
-      <label>Phone Number</label>
-      <input type="tel" name="phone">
-
-      <label>Message</label>
-      <textarea name="message" rows="5" required></textarea>
-
-      <button type="submit" class="btn btn-primary" style="margin-top:20px;">Send Message</button>
+    <form class="contact-form">
+      <h3>Send Us a Message</h3>
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <input type="text" placeholder="Subject" required>
+      <textarea placeholder="Your Message" rows="5" required></textarea>
+      <button type="submit" class="btn btn-primary">Send Message</button>
     </form>
-
-    <p id="contactMessage" style="margin-top:15px;"></p>
   </section>
 
   <!-- Footer -->
@@ -58,38 +60,6 @@
       <p>© 2025 Babanentse Co-op. All rights reserved.</p>
     </div>
   </footer>
-
-  <!-- Script -->
-  <script>
-    const contactForm = document.getElementById("contactForm");
-    const contactMsg = document.getElementById("contactMessage");
-
-    contactForm.addEventListener("submit", async function(e) {
-      e.preventDefault();
-      contactMsg.innerText = "⏳ Sending...";
-      contactMsg.style.color = "black";
-
-      try {
-        const response = await fetch(contactForm.action, {
-          method: "POST",
-          body: new FormData(contactForm),
-          headers: { 'Accept': 'application/json' }
-        });
-
-        if (response.ok) {
-          contactMsg.innerText = "✅ Message sent successfully!";
-          contactMsg.style.color = "green";
-          contactForm.reset();
-        } else {
-          contactMsg.innerText = "❌ Something went wrong. Please try again.";
-          contactMsg.style.color = "red";
-        }
-      } catch (error) {
-        contactMsg.innerText = "⚠️ Network error. Please try again.";
-        contactMsg.style.color = "red";
-      }
-    });
-  </script>
 
 </body>
 </html>
