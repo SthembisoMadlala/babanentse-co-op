@@ -61,9 +61,6 @@
       <!-- Hidden field to identify form -->
       <input type="hidden" name="formType" value="Get Quote">
 
-      <!-- Redirect after submit -->
-      <input type="hidden" name="_redirect" value="https://babanentse.com/thank-you.html">
-
       <button type="submit" class="btn btn-primary">Get My Quote</button>
     </form>
   </section>
@@ -74,6 +71,26 @@
       <p>© 2025 Babanentse Co-op. All rights reserved.</p>
     </div>
   </footer>
+
+  <!-- Redirect Script -->
+  <script>
+    const form = document.querySelector(".quote-form");
+    form.addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      const data = new FormData(form);
+      const action = form.getAttribute("action");
+
+      await fetch(action, {
+        method: "POST",
+        body: data,
+        headers: { "Accept": "application/json" }
+      });
+
+      // Redirect to thank-you page
+      window.location.href = "thank-you.html";
+    });
+  </script>
 
 </body>
 </html>
