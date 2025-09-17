@@ -23,7 +23,7 @@
   </div>
 
   <!-- Hero -->
-  <section class="page-hero" style="background:url('https://via.placeholder.com/1600x600?text=Place+Your+Order') center/cover no-repeat;">
+  <section class="page-hero" style="background:url('background.jpg') center/cover no-repeat;">
     <div class="overlay"></div>
     <div class="page-hero-content">
       <h1>Place Your Order</h1>
@@ -33,7 +33,8 @@
 
   <!-- Order Form -->
   <section class="order-form-section" style="padding:40px; background:#fff; color:#111;">
-    <form id="orderForm">
+    <form id="orderForm" action="https://formspree.io/f/xdklrlzn" method="POST" enctype="multipart/form-data">
+      
       <label>Full Name</label>
       <input type="text" name="full_name" required>
 
@@ -64,8 +65,8 @@
       <label>Additional Notes</label>
       <textarea name="notes" rows="4"></textarea>
 
-      <input type="hidden" name="date" id="orderDate">
-
+      <input type="hidden" name="date" value="">
+      
       <button type="submit" class="btn btn-primary" style="margin-top:20px;">Place Order</button>
     </form>
 
@@ -79,29 +80,37 @@
     </div>
   </footer>
 
-  <!-- EmailJS -->
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+  <!-- Small Script to add current date -->
   <script>
-    (function(){
-      emailjs.init("3K2B2VJXNjpTVjW-6"); // Public Key
-    })();
+    document.querySelector("input[name='date']").value = new Date().toLocaleString();
 
-    document.getElementById("orderForm").addEventListener("submit", function(e){
+    const form = document.getElementById("orderForm");
+    const message = document.getElementById("formMessage");
+
+    form.addEventListener("submit", async function(e) {
       e.preventDefault();
+      message.innerText = "⏳ Sending...";
+      message.style.color = "black";
 
-      // Set current date
-      document.getElementById("orderDate").value = new Date().toLocaleString();
-
-      emailjs.sendForm("service_u9o5uws", "template_t9ev2qq", this)
-        .then(function(){
-          document.getElementById("formMessage").innerText = "✅ Order sent successfully! We’ll contact you soon.";
-          document.getElementById("formMessage").style.color = "green";
-          document.getElementById("orderForm").reset();
-        }, function(error){
-          console.error(error);
-          document.getElementById("formMessage").innerText = "❌ Something went wrong. Please try again.";
-          document.getElementById("formMessage").style.color = "red";
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
         });
+
+        if (response.ok) {
+          message.innerText = "✅ Order sent successfully! We’ll contact you soon.";
+          message.style.color = "green";
+          form.reset();
+        } else {
+          message.innerText = "❌ Something went wrong. Please try again.";
+          message.style.color = "red";
+        }
+      } catch (error) {
+        message.innerText = "⚠️ Network error. Please try again.";
+        message.style.color = "red";
+      }
     });
   </script>
 
